@@ -248,7 +248,7 @@
 
 " }
 
-" 我自己添加的 杂项 {
+" 我自己添加的杂项 {
     set selection=inclusive
     set mousemodel=popup
     "自动打开上次被关闭的文件，并回到原来的光标处
@@ -277,6 +277,10 @@
 
     "自动换行
     set wrap
+    "总是显示标签页
+    set showtabline=2
+    "在状态栏中显示powerline_fonts，这个字体需要单独下载安装
+    let g:airline_powerline_fonts=1
     
 " }
 
@@ -1185,3 +1189,4 @@
         endif
     endif
 " }
+
