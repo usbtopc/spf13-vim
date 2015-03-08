@@ -155,6 +155,38 @@
 
 " }
 
+" 我自己添加的杂项 {
+    set selection=inclusive
+    set wildmenu
+    set mousemodel=popup
+    "自动打开上次被关闭的文件，并回到原来的光标处
+    " Open last active file(s) if VIM is invoked without arguments.
+    autocmd VimLeave * nested let buffernr = bufnr("$") |
+    \ let buflist = [] |
+    \ while buffernr > 0 |
+    \	if buflisted(buffernr) |
+    \	let buflist += [ bufname(buffernr) ] |
+    \	endif |
+    \ let buffernr -= 1 |
+    \ endwhile |
+    \ if (!isdirectory($HOME . "/.vim")) |
+    \	call mkdir($HOME . "/.vim") |
+    \ endif |
+    \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
+    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
+    \	for line in readfile($HOME . "/.vim/buflist.txt") |
+    \	if filereadable(line) |
+    \	execute "tabedit " . line |
+    \	set bufhidden=delete |
+    \	endif |
+    \	endfor |
+    \	tabclose 1 |
+    \ endif
+
+    "自动换行
+    :set wrap
+" }
+
 " Vim UI {
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -162,20 +194,20 @@
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
         let g:solarized_visibility="normal"
-        color solarized             " Load a colorscheme
+        color default             " Load a colorscheme
     endif
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    set cursorline                  " Highlight current line
+    "set cursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
     "highlight clear CursorLineNr    " Remove highlight color from current line number
 
     if has('cmdline_info')
-        set ruler                   " Show the ruler
+        "set ruler                   " Show the ruler
         set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
         set showcmd                 " Show partial commands in status line and
                                     " Selected characters/lines in visual mode
@@ -1153,3 +1185,4 @@
         endif
     endif
 " }
+
