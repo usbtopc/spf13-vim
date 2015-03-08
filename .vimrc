@@ -106,7 +106,7 @@
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
-    set spell                           " Spell checking on
+    "set spell                         " Spell checking on
     set hidden                          " Allow buffer switching without saving
     set iskeyword-=.                    " '.' is an end of word designator
     set iskeyword-=#                    " '#' is an end of word designator
@@ -155,38 +155,6 @@
 
 " }
 
-" 我自己添加的杂项 {
-    set selection=inclusive
-    set wildmenu
-    set mousemodel=popup
-    "自动打开上次被关闭的文件，并回到原来的光标处
-    " Open last active file(s) if VIM is invoked without arguments.
-    autocmd VimLeave * nested let buffernr = bufnr("$") |
-    \ let buflist = [] |
-    \ while buffernr > 0 |
-    \	if buflisted(buffernr) |
-    \	let buflist += [ bufname(buffernr) ] |
-    \	endif |
-    \ let buffernr -= 1 |
-    \ endwhile |
-    \ if (!isdirectory($HOME . "/.vim")) |
-    \	call mkdir($HOME . "/.vim") |
-    \ endif |
-    \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
-    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
-    \	for line in readfile($HOME . "/.vim/buflist.txt") |
-    \	if filereadable(line) |
-    \	execute "tabedit " . line |
-    \	set bufhidden=delete |
-    \	endif |
-    \	endfor |
-    \	tabclose 1 |
-    \ endif
-
-    "自动换行
-    :set wrap
-" }
-
 " Vim UI {
 
     if !exists('g:override_spf13_bundles') && filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
@@ -200,7 +168,7 @@
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    "set cursorline                  " Highlight current line
+    set cursorline                  " Highlight current line
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
@@ -249,7 +217,7 @@
 
 " Formatting {
 
-    set nowrap                      " Do not wrap long lines
+    ""set nowrap                      " Do not wrap long lines
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
@@ -280,7 +248,39 @@
 
 " }
 
-" Key (re)Mappings {
+" 我自己添加的 杂项 {
+    set selection=inclusive
+    set mousemodel=popup
+    "自动打开上次被关闭的文件，并回到原来的光标处
+    " Open last active file(s) if VIM is invoked without arguments.
+    autocmd VimLeave * nested let buffernr = bufnr("$") |
+    \ let buflist = [] |
+    \ while buffernr > 0 |
+    \	if buflisted(buffernr) |
+    \	let buflist += [ bufname(buffernr) ] |
+    \	endif |
+    \ let buffernr -= 1 |
+    \ endwhile |
+    \ if (!isdirectory($HOME . "/.vim")) |
+    \	call mkdir($HOME . "/.vim") |
+    \ endif |
+    \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
+    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
+    \	for line in readfile($HOME . "/.vim/buflist.txt") |
+    \	if filereadable(line) |
+    \	execute "tabedit " . line |
+    \	set bufhidden=delete |
+    \	endif |
+    \	endfor |
+    \	tabclose 1 |
+    \ endif
+
+    "自动换行
+    set wrap
+    
+" }
+
+ " Key (re)Mappings {
 
     " The default leader is '\', but many people prefer ',' as it's in a standard
     " location. To override this behavior and set it back to '\' (or any other
@@ -1048,7 +1048,7 @@
 
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
-        set guioptions-=T           " Remove the toolbar
+        "set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
         if !exists("g:spf13_no_big_font")
             if LINUX() && has("gui_running")
@@ -1185,4 +1185,3 @@
         endif
     endif
 " }
-
