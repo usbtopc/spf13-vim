@@ -272,7 +272,7 @@
     \	set bufhidden=delete |
     \	endif |
     \	endfor |
-    “\	tabclose 1 |
+    " \	tabclose 1 |
     \ endif
 
     "自动换行
