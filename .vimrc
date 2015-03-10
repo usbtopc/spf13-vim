@@ -1195,10 +1195,14 @@
 	
     "解决consle输出乱码，这非常重要，对于在win下面来说！
 	language messages zh_CN.utf-8
-
-	"解决Win下菜单乱码
-	source $VIMRUNTIME/delmenu.vim
-	source $VIMRUNTIME/menu.vim
+	
+     "解决DOS窗口运行VIM出现乱码
+	set termencoding=cp936
+	
+     "解决Win下菜单乱码
+     source $VIMRUNTIME/delmenu.vim
+     source $VIMRUNTIME/menu.vim
+     
     "保留工具栏
     set guioptions+=T
 " }
