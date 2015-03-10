@@ -106,7 +106,7 @@
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
-    "set spell                         " Spell checking on
+    set spell                           " Spell checking on
     set hidden                          " Allow buffer switching without saving
     set iskeyword-=.                    " '.' is an end of word designator
     set iskeyword-=#                    " '#' is an end of word designator
@@ -162,7 +162,7 @@
         let g:solarized_termtrans=1
         let g:solarized_contrast="normal"
         let g:solarized_visibility="normal"
-        color default             " Load a colorscheme
+        color solarized             " Load a colorscheme
     endif
 
     set tabpagemax=15               " Only show 15 tabs
@@ -175,7 +175,7 @@
     "highlight clear CursorLineNr    " Remove highlight color from current line number
 
     if has('cmdline_info')
-        "set ruler                   " Show the ruler
+        set ruler                   " Show the ruler
         set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
         set showcmd                 " Show partial commands in status line and
                                     " Selected characters/lines in visual mode
@@ -217,7 +217,7 @@
 
 " Formatting {
 
-    ""set nowrap                      " Do not wrap long lines
+    set nowrap                      " Do not wrap long lines
     set autoindent                  " Indent at the same level of the previous line
     set shiftwidth=4                " Use indents of 4 spaces
     set expandtab                   " Tabs are spaces, not tabs
@@ -248,8 +248,8 @@
 
 " }
 
-" 我自己添加的杂项 {
-    set selection=inclusive
+" 中文相关的配置杂项 {
+    "单独做成一块，用来覆盖原始作者的设置，使之更符合中文习惯并容易在原作者的基础上继续升级配置
     set mousemodel=popup
     "自动打开上次被关闭的文件，并回到原来的光标处
     " Open last active file(s) if VIM is invoked without arguments.
@@ -277,23 +277,35 @@
 
     "自动换行
     set wrap
+    
+    "配色方案	
+    color default
+
+    "关闭拼写检查
+    set nospell
+
     "总是显示标签页
     set showtabline=2
+
     "在状态栏中显示powerline_fonts，这个字体需要单独下载安装，在win下关闭这个功能
     if LINUX() && has("gui_running")
 		let g:airline_powerline_fonts=1
 	elseif OSX() && has("gui_running")
-		let g:airline_powerline_fonts=1
+		"let g:airline_powerline_fonts=1  "暂时去掉，在Mac下面有些问题容易导致汉字变成“方块”
 	endif
+
 	"解决consle输出乱码，这非常重要，对于在win下面来说！
 	language messages zh_CN.utf-8
+
 	"解决Win下菜单乱码
 	source $VIMRUNTIME/delmenu.vim
 	source $VIMRUNTIME/menu.vim
-	        
+    "保留工具栏
+    set guioptions+=T
+               	        
 " }
 
- " Key (re)Mappings {
+" Key (re)Mappings {
 
     " The default leader is '\', but many people prefer ',' as it's in a standard
     " location. To override this behavior and set it back to '\' (or any other
@@ -1061,13 +1073,13 @@
 
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
-        "set guioptions-=T           " Remove the toolbar
+        set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
         if !exists("g:spf13_no_big_font")
             if LINUX() && has("gui_running")
                 set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
             elseif OSX() && has("gui_running")
-                set guifont=黑体:h15,Andale\ Mono\ Regular:h15,Menlo\ Regular:h15,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+                set guifont=Andale\ Mono\ Regular:h15,Menlo\ Regular:h15,Consolas\ Regular:h12,Courier\ New\ Regular:h14
             elseif WINDOWS() && has("gui_running")
                 set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
             endif
