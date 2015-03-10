@@ -248,63 +248,6 @@
 
 " }
 
-" 中文相关的配置杂项 {
-    "单独做成一块，用来覆盖原始作者的设置，使之更符合中文习惯并容易在原作者的基础上继续升级配置
-    set mousemodel=popup
-    "自动打开上次被关闭的文件，并回到原来的光标处
-    " Open last active file(s) if VIM is invoked without arguments.
-    autocmd VimLeave * nested let buffernr = bufnr("$") |
-    \ let buflist = [] |
-    \ while buffernr > 0 |
-    \	if buflisted(buffernr) |
-    \	let buflist += [ bufname(buffernr) ] |
-    \	endif |
-    \ let buffernr -= 1 |
-    \ endwhile |
-    \ if (!isdirectory($HOME . "/.vim")) |
-    \	call mkdir($HOME . "/.vim") |
-    \ endif |
-    \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
-    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
-    \	for line in readfile($HOME . "/.vim/buflist.txt") |
-    \	if filereadable(line) |
-    \	execute "tabedit " . line |
-    \	set bufhidden=delete |
-    \	endif |
-    \	endfor |
-    " \	tabclose 1 |
-    \ endif
-
-    "自动换行
-    set wrap
-    
-    "配色方案	
-    color default
-
-    "关闭拼写检查
-    set nospell
-
-    "总是显示标签页
-    set showtabline=2
-
-    "在状态栏中显示powerline_fonts，这个字体需要单独下载安装，在win下关闭这个功能
-    if LINUX() && has("gui_running")
-		let g:airline_powerline_fonts=1
-	elseif OSX() && has("gui_running")
-		"let g:airline_powerline_fonts=1  "暂时去掉，在Mac下面有些问题容易导致汉字变成“方块”
-	endif
-
-	"解决consle输出乱码，这非常重要，对于在win下面来说！
-	language messages zh_CN.utf-8
-
-	"解决Win下菜单乱码
-	source $VIMRUNTIME/delmenu.vim
-	source $VIMRUNTIME/menu.vim
-    "保留工具栏
-    set guioptions+=T
-               	        
-" }
-
 " Key (re)Mappings {
 
     " The default leader is '\', but many people prefer ',' as it's in a standard
@@ -1209,4 +1152,60 @@
             source ~/.gvimrc.local
         endif
     endif
+" }
+
+" 中文相关的配置杂项 {
+    "单独做成一块，必须放在最后面，用来覆盖原始作者的设置，使之更符合中文习惯并容易在原作者的基础上继续升级配置
+    set mousemodel=popup
+    "自动打开上次被关闭的文件，并回到原来的光标处
+    " Open last active file(s) if VIM is invoked without arguments.
+    autocmd VimLeave * nested let buffernr = bufnr("$") |
+    \ let buflist = [] |
+    \ while buffernr > 0 |
+    \	if buflisted(buffernr) |
+    \	let buflist += [ bufname(buffernr) ] |
+    \	endif |
+    \ let buffernr -= 1 |
+    \ endwhile |
+    \ if (!isdirectory($HOME . "/.vim")) |
+    \	call mkdir($HOME . "/.vim") |
+    \ endif |
+    \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
+    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
+    \	for line in readfile($HOME . "/.vim/buflist.txt") |
+    \	if filereadable(line) |
+    \	execute "tabedit " . line |
+    \	set bufhidden=delete |
+    \	endif |
+    \	endfor |
+    " \	tabclose 1 |
+    \ endif
+
+    "自动换行
+    set wrap
+    
+    "配色方案	
+    color default
+
+    "关闭拼写检查
+    set nospell
+
+    "总是显示标签页
+    set showtabline=2
+
+    "在状态栏中显示powerline_fonts，这个字体需要单独下载安装，在win下关闭这个功能
+    if LINUX() && has("gui_running")
+		let g:airline_powerline_fonts=1
+	elseif OSX() && has("gui_running")
+		"let g:airline_powerline_fonts=1  "暂时去掉，在Mac下面有些问题容易导致汉字变成“方块”
+	endif
+
+	"解决consle输出乱码，这非常重要，对于在win下面来说！
+	language messages zh_CN.utf-8
+
+	"解决Win下菜单乱码
+	source $VIMRUNTIME/delmenu.vim
+	source $VIMRUNTIME/menu.vim
+    "保留工具栏
+    set guioptions+=T
 " }
