@@ -1225,6 +1225,7 @@
 		"解决Win下乱码的问题（专门针对Win）
 		if WINDOWS()
 			"解决DOS窗口执行VIM乱码
+			language messages zh_CN.utf-8
 			set termencoding=cp936
 		endif
     endif
