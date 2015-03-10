@@ -1204,7 +1204,35 @@
      "解决Win下菜单乱码
      source $VIMRUNTIME/delmenu.vim
      source $VIMRUNTIME/menu.vim
-     
-    "保留工具栏
-    set guioptions+=T
+        
+	"下面用新的字体来覆盖原作者的设置，以便正常在win和mac下显示Powerlinefont
+	
+	" GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+		"只是在GUI下开启airline，终端窗口不用开启
+		let g:airline_powerline_fonts=1
+        set guioptions+=T           " 保留工具栏
+        set lines=40                " 40 lines of text instead of 24
+        if !exists("g:spf13_no_big_font")
+            if LINUX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
+            elseif OSX() && has("gui_running")
+                set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16,Andale\ Mono\ Regular:h15,Menlo\ Regular:h15,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+            elseif WINDOWS() && has("gui_running")
+                set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+			endif
+        endif
+    else
+        if &term == 'xterm' || &term == 'screen'
+            set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        endif
+        ""set term=builtin_ansi       " Make arrow and other keys work
+		
+		"解决DOS窗口运行VIM出现乱码
+		if WINDOWS()
+			set termencoding=cp936
+		endif
+    endif
+	
+	
 " }
