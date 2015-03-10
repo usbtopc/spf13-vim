@@ -1192,15 +1192,8 @@
 
     "总是显示标签页
     set showtabline=2
-
-    "在状态栏中显示powerline_fonts，这个字体需要单独下载安装，在win下关闭这个功能
-    if LINUX() && has("gui_running")
-		let g:airline_powerline_fonts=1
-	elseif OSX() && has("gui_running")
-		"let g:airline_powerline_fonts=1  "暂时去掉，在Mac下面有些问题容易导致汉字变成“方块”
-	endif
-
-	"解决consle输出乱码，这非常重要，对于在win下面来说！
+	
+    "解决consle输出乱码，这非常重要，对于在win下面来说！
 	language messages zh_CN.utf-8
 
 	"解决Win下菜单乱码
