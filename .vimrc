@@ -1192,18 +1192,7 @@
 
     "总是显示标签页
     set showtabline=2
-	
-    "解决consle输出乱码，这非常重要，对于在win下面来说！
-	language messages zh_CN.utf-8
-	
-     "解决DOS窗口运行VIM出现乱码
-     if WINDOWS() && has("gui_running")
-	set termencoding=cp936
-     endif
-	
-     "解决Win下菜单乱码
-     source $VIMRUNTIME/delmenu.vim
-     source $VIMRUNTIME/menu.vim
+    
         
 	"下面用新的字体来覆盖原作者的设置，以便正常在win和mac下显示Powerlinefont
 	
@@ -1220,7 +1209,12 @@
                 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16,Andale\ Mono\ Regular:h15,Menlo\ Regular:h15,Consolas\ Regular:h12,Courier\ New\ Regular:h14
             elseif WINDOWS() && has("gui_running")
                 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-			endif
+					"解决consle输出乱码，这非常重要，对于在win下面来说！
+					language messages zh_CN.utf-8
+					"解决Win下菜单乱码
+     				source $VIMRUNTIME/delmenu.vim
+     				source $VIMRUNTIME/menu.vim
+			  endif
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -1228,8 +1222,9 @@
         endif
         ""set term=builtin_ansi       " Make arrow and other keys work
 		
-		"解决DOS窗口运行VIM出现乱码
+		"解决Win下乱码的问题（专门针对Win）
 		if WINDOWS()
+			"解决DOS窗口执行VIM乱码
 			set termencoding=cp936
 		endif
     endif
