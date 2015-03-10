@@ -1197,7 +1197,9 @@
 	language messages zh_CN.utf-8
 	
      "解决DOS窗口运行VIM出现乱码
+     if WINDOWS() && has("gui_running")
 	set termencoding=cp936
+     endif
 	
      "解决Win下菜单乱码
      source $VIMRUNTIME/delmenu.vim
