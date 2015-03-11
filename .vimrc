@@ -1157,30 +1157,7 @@
 " 中文相关的配置杂项 {
     "单独做成一块，必须放在最后面，用来覆盖原始作者的设置，使之更符合中文习惯并容易在原作者的基础上继续升级配置
     set mousemodel=popup
-    "自动打开上次被关闭的文件，并回到原来的光标处
-    " Open last active file(s) if VIM is invoked without arguments.
-    autocmd VimLeave * nested let buffernr = bufnr("$") |
-    \ let buflist = [] |
-    \ while buffernr > 0 |
-    \	if buflisted(buffernr) |
-    \	let buflist += [ bufname(buffernr) ] |
-    \	endif |
-    \ let buffernr -= 1 |
-    \ endwhile |
-    \ if (!isdirectory($HOME . "/.vim")) |
-    \	call mkdir($HOME . "/.vim") |
-    \ endif |
-    \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
-    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
-    \	for line in readfile($HOME . "/.vim/buflist.txt") |
-    \	if filereadable(line) |
-    \	execute "tabedit " . line |
-    \	set bufhidden=delete |
-    \	endif |
-    \	endfor |
-    " \	tabclose 1 |
-    \ endif
-
+    
     "自动换行
     set wrap
     
@@ -1194,9 +1171,8 @@
     set showtabline=2
     
         
-	"下面用新的字体来覆盖原作者的设置，以便正常在win和mac下显示Powerlinefont
-	
-	" GVIM- (here instead of .gvimrc)
+"下面用新的字体来覆盖原作者的设置，以便正常在win和mac下显示Powerlinefont
+" GVIM- (here instead of .gvimrc)
     if has('gui_running')
 		"只是在GUI下开启airline，终端窗口不用开启
 		let g:airline_powerline_fonts=1
@@ -1218,12 +1194,12 @@
                 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h15,Andale\ Mono\ Regular:h15,Menlo\ Regular:h15,Consolas\ Regular:h12,Courier\ New\ Regular:h14
             elseif WINDOWS() && has("gui_running")
                 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-					"解决consle输出乱码，这非常重要，对于在win下面来说！
-					language messages zh_CN.utf-8
-					"解决Win下菜单乱码
-     				source $VIMRUNTIME/delmenu.vim
-     				source $VIMRUNTIME/menu.vim
-			  endif
+		"解决consle输出乱码，这非常重要，对于在win下面来说！
+		language messages zh_CN.utf-8
+		"解决Win下菜单乱码
+     		source $VIMRUNTIME/delmenu.vim
+     		source $VIMRUNTIME/menu.vim
+		endif
         endif
     else
         if &term == 'xterm' || &term == 'screen'
@@ -1238,7 +1214,5 @@
 			set termencoding=cp936
 		endif
     endif
-    
-	
-	
+
 " }
