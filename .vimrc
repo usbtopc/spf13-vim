@@ -1200,13 +1200,22 @@
     if has('gui_running')
 		"只是在GUI下开启airline，终端窗口不用开启
 		let g:airline_powerline_fonts=1
+		"覆盖原始作者的状态栏设置，以便在Mac下起作用
+		if isdirectory(expand("~/.vim/bundle/vim-airline/"))
+            let g:airline_theme = 'dark'
+            let g:airline_left_sep=''  " Slightly fancier than ''
+        	let g:airline_right_sep='' " Slightly fancier than ''
+        endif
+		
+        
         set guioptions+=T           " 保留工具栏
         set lines=40                " 40 lines of text instead of 24
+        "重新设置字体，在Win和Mac下将Powerline作为首选字体，否则airline会无法生效
         if !exists("g:spf13_no_big_font")
             if LINUX() && has("gui_running")
                 set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
             elseif OSX() && has("gui_running")
-                set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16,Andale\ Mono\ Regular:h15,Menlo\ Regular:h15,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+                set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h15,Andale\ Mono\ Regular:h15,Menlo\ Regular:h15,Consolas\ Regular:h12,Courier\ New\ Regular:h14
             elseif WINDOWS() && has("gui_running")
                 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10,Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
 					"解决consle输出乱码，这非常重要，对于在win下面来说！
@@ -1229,6 +1238,7 @@
 			set termencoding=cp936
 		endif
     endif
+    
 	
 	
 " }
