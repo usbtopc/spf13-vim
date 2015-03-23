@@ -1162,7 +1162,7 @@
     set wrap
     
     "配色方案	
-    color default
+    color tomorrow "default
 
     "关闭拼写检查
     set nospell
@@ -1213,6 +1213,14 @@
 			language messages zh_CN.utf-8
 			set termencoding=cp936
 		endif
+    endif
+    "解决windows下打开的文件出现内容乱码
+    set encoding=utf-8
+    set fileencodings=utf-8,chinese,latin-1
+    if has("win32")
+        set fileencoding=chinese
+    else
+        set fileencoding=utf-8
     endif
 
 " }
